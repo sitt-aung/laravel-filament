@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             VoucherSeeder::class,
             PaymentSeeder::class,
             TagSeeder::class,
+            RoleSeeder::class,
         ]);
     }
 }
