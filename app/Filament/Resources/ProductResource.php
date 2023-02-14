@@ -32,6 +32,7 @@ class ProductResource extends Resource
                     }),
                 Forms\Components\TextInput::make('slug')->required(),
                 Forms\Components\TextInput::make('price')->required()->rule('numeric'),
+                Forms\Components\FileUpload::make('image'),
             ]);
     }
 
@@ -39,6 +40,7 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')->width(50)->height(50),
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->money('usd'),
             ])
