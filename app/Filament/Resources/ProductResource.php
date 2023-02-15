@@ -30,15 +30,21 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->reactive()
-                    ->afterStateUpdated(function (\Closure $set, $state) {
-                        $set('slug', Str::slug($state));
-                    }),
-                Forms\Components\TextInput::make('slug')->required(),
-                Forms\Components\TextInput::make('price')->required()->rule('numeric'),
-                Forms\Components\FileUpload::make('image'),
+                Forms\Components\Wizard::make([
+                    Forms\Components\Wizard\Step::make('Main fields')->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->reactive()
+                            ->afterStateUpdated(function (\Closure $set, $state) {
+                                $set('slug', Str::slug($state));
+                            }),
+                        Forms\Components\TextInput::make('slug')->required(),
+                    ]),
+                    Forms\Components\Wizard\Step::make('Secondary fields')->schema([
+                        Forms\Components\TextInput::make('price')->required()->rule('numeric'),
+                        Forms\Components\FileUpload::make('image'),
+                    ]),
+                ]),
             ]);
     }
 
